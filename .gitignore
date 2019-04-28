@@ -1,0 +1,10 @@
+# ignore Composer downloads
+/vendor/*
+.DS_Store
+/.vagrant/*
+/config/*
+
+# keep some hiddens
+!.htaccess
+!/.gitignore
+!*.dist
