@@ -1,9 +1,10 @@
 <?php
-spl_autoload_register(function($className) {
-    include_once $_SERVER['DOCUMENT_ROOT'] . '/modules/' . $className . '.php';
-});
 
+include $_SERVER['DOCUMENT_ROOT'].'/classes/Book/Contact.php';
 
+$class = new Contact();
+$class->create();
+/*
 try{
 
 	$method_name=$_SERVER["REQUEST_METHOD"];
@@ -32,3 +33,4 @@ try{
 	catch(Exception $e) {
 		echo 'Caught exception: ',  $e->getMessage(), "\n";
 }
+*/

@@ -1,32 +1,63 @@
 <?php
+namespace classes\Book;
 
-namespace News;
+use \classes\Entities;
+use \classes\Book\ContactInterface;
+
+require_once ($_SERVER['DOCUMENT_ROOT']."/bootstrap.php");
+
+spl_autoload_register(function($className) {
+    include_once $_SERVER['DOCUMENT_ROOT'] . '/classes/' . $className . '.php';
+});
 
 /**
- * Class News
+ * Class Contact
  *
- * @author  Jonisiaco  <jonisiaco@gmail.com>
  */
-class NewsController
+class Contact implements ContactInterface
 {
     /**
      * @OA\Post(
-     *     path="/pet",
-     *     tags={"pet"},
-     *     summary="Add a new pet to the store",
-     *     operationId="addPet",
+     *     path="/news",
+     *     tags={"news"},
+     *     summary="Add a new to news",
+     *     operationId="create",
      *     @OA\Response(
      *         response=405,
      *         description="Invalid input"
      *     ),
      *     security={
-     *         {"petstore_auth": {"write:pets", "read:pets"}}
+     *         {"petstore_auth": {"write:news", "read:news"}}
      *     },
-     *     requestBody={"$ref": "#/components/requestBodies/Pet"}
+     *     requestBody={"$ref": "#/components/requestBodies/News"}
      * )
      */
-    public function addPet()
+    public function create()
     {
+
+        $user = (new Entities\User())
+            ->setFirstName("John")
+            ->setSurname("Smith")
+            ->setCreatedAt(new DateTime());
+
+        $entity_manager->persist($user);
+
+        $phone = (new Entities\Phone())
+            ->setNumber("55-78943-930")
+            ->setCreatedAt(new DateTime());
+
+        $user->addPhone($phone);
+
+        $email = (new Entities\Email())
+            ->setEmail("jonisiaco@gmail.com")
+            ->setCreatedAt(new DateTime());
+
+        $user->addEmail($email);
+
+        // Finally flush and execute the database transaction
+        $entity_manager->flush();
+
+        return $user;
     }
 
     /**
@@ -53,7 +84,7 @@ class NewsController
      *     requestBody={"$ref": "#/components/requestBodies/Pet"}
      * )
      */
-    public function updatePet()
+    public function update()
     {
     }
 
@@ -190,7 +221,7 @@ class NewsController
      *
      * @param int $id
      */
-    public function getPetById($id)
+    public function getById($id)
     {
     }
 
@@ -279,7 +310,7 @@ class NewsController
      *     },
      * )
      */
-    public function deletePet()
+    public function delete()
     {
     }
 

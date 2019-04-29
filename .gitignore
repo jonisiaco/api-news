@@ -3,6 +3,7 @@
 .DS_Store
 /.vagrant/*
 /config/*
+/phpmyadmin/*
 
 # keep some hiddens
 !.htaccess
